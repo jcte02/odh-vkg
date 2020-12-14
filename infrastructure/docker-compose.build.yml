@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 services:
   ontop:
@@ -7,8 +7,13 @@ services:
       context: ../
       dockerfile: infrastructure/docker/ontop/Dockerfile
       target: build
+  gatekeeper:
+    image: ${DOCKER_IMAGE_GATEKEEPER}:${DOCKER_TAG}
+    build:
+      context: ../
+      dockerfile: infrastructure/docker/gatekeeper/Dockerfile
   nginx:
     image: ${DOCKER_IMAGE_NGINX}:${DOCKER_TAG}
-    build: 
+    build:
       context: ../
       dockerfile: infrastructure/docker/nginx/Dockerfile

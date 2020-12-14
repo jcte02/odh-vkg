@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 services:
   ontop:
@@ -24,6 +24,16 @@ services:
       - ./jdbc:/opt/ontop/jdbc
       - ./src:/opt/ontop/src
     entrypoint: ["/wait-for-it.sh","master-db:5432","--timeout=0","--strict", "--", "/entrypoint.sh"]
+  gatekeeper:
+    build:
+      context: ./
+      dockerfile: infrastructure/docker/gatekeeper/Dockerfile
+    environment:
+      PROXY_DISCOVERY_URL: "${KEYCLOAK_ENDPOINT}"
+      PROXY_REDIRECTION_URL: "http://localhost:${SERVER_PORT}"
+      PROXY_CLIENT_ID: "${KEYCLOAK_CLIENT_ID}"
+      PROXY_CLIENT_SECRET: "${KEYCLOAK_CLIENT_SECRET}"
+      PROXY_ENCRYPTION_KEY: "${KEYCLOAK_ENCRYPTION_KEY}"
   nginx:
     build:
       context: ./

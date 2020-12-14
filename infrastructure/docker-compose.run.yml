@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 services:
   ontop:
@@ -31,6 +31,14 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+  gatekeeper:
+    image: ${DOCKER_IMAGE_GATEKEEPER}:${DOCKER_TAG}
+    restart: unless-stopped
+    environment:
+      PROXY_DISCOVERY_URL: "${KEYCLOAK_ENDPOINT}"
+      PROXY_CLIENT_ID: "${KEYCLOAK_CLIENT_ID}"
+      PROXY_CLIENT_SECRET: "${KEYCLOAK_CLIENT_SECRET}"
+      PROXY_ENCRYPTION_KEY: "${KEYCLOAK_ENCRYPTION_KEY}"
   nginx:
     image: ${DOCKER_IMAGE_NGINX}:${DOCKER_TAG}
     restart: unless-stopped

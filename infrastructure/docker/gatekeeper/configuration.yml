@@ -1,0 +1,5 @@
+listen: 0.0.0.0:3000
+upstream-url: http://ontop:8080
+secure-cookie: false
+enable-default-deny: true
+enable-refresh-tokens: true
